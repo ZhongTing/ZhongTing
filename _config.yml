@@ -62,6 +62,7 @@ pagination_dir: page
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
+plugins: hexo-algoliasearch
 ## Themes: https://hexo.io/themes/
 theme: tranquilpeak
 
@@ -71,4 +72,19 @@ deploy:
   type: git
   repository: git@github.com:ZhongTing/blog.git
   branch: gh-pages
+
+algolia:
+  appId: "QHSGUTOR8Y"
+  apiKey: "5920827ed929cb06516afb8686079f7d"
+  adminApiKey: "3e469e16e17838de809f9b4b120eba94"
+  chunkSize: 5000
+  indexName: "hexo-blog"
+  fields:
+    - title
+    - tags
+    - slug
+    - excerpt
+    - excerpt:strip
+    - photos
+    - gallery
 
