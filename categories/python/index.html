@@ -11,6 +11,8 @@
     
     
     
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/blog/atom.xml">
+    
     <meta property="og:type" content="blog">
 <meta property="og:title" content="Felix' space">
 <meta property="og:url" content="http://zhongting.github.io/blog/categories/python/index.html">
@@ -28,7 +30,7 @@
     
     
     <!--STYLES-->
-    <link rel="stylesheet" href="/blog/assets/css/style-1nxuir9evjchmexuyexzna0rhiik64yea301ki6wsrwjwelxmutcfl0deb6n.min.css">
+    <link rel="stylesheet" href="/blog/assets/css/style-70z86hmljzozim3t5e857sr3hgtaliciis4rbbp3cf6bauyjups7jkada0se.min.css">
     <!--STYLES END-->
     
     <script type="text/javascript">
@@ -169,6 +171,33 @@
         
             <ul class="sidebar-buttons">
             
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/ZhongTing" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://www.linkedin.com/in/zhongting" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
+                        <span class="sidebar-button-desc">LinkedIn</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="mailto:gary62107@gmail.com" target="_blank" rel="noopener">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                        <span class="sidebar-button-desc">Mail</span>
+                    </a>
+            </li>
+            
         </ul>
         
             <ul class="sidebar-buttons">
@@ -199,14 +228,14 @@
     <section class="postShorten-group main-content-wrap">
     
     
-    <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+    <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
         <div class="postShorten-wrap">
             
             <div class="postShorten-header">
                 <h1 class="postShorten-title" itemprop="headline">
                     
                         <a class="link-unstyled" href="/blog/2016/03/21/Window下中文處理的亂碼/">
-                            Window下中文處理的亂碼
+                            Python3在Windows下的中文亂碼處理
                         </a>
                     
                 </h1>
@@ -227,30 +256,13 @@
 
             </div>
             
-                <div class="postShorten-content" itemprop="articleBody">
-                    <p>筆者是個python新手，不過最近論文需要，所以用python寫了一支load json預處理的程式<br>因為json內容大部分是中文，耳聞Python3在中文處理這方面比Python2還要來的好<br>於是使用了Python3.5來撰寫程式<br>沒想到在window下，這是一個悲劇的開始XDD</p>
-<p>首先這是一個接json的程式<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</div><div class="line"></div><div class="line">req = request.urlopen(jsonUrl)</div><div class="line">print(req.read())</div></pre></td></tr></table></figure></p>
-<p>但馬上會發現中文的地方會變成\x8e\x6e之類的亂碼<br>接著直覺性的會想要轉碼<br>因為req.read()出來的型態是byte<br>所以下了decode轉成unicode</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</div><div class="line"></div><div class="line">req = request.urlopen(jsonUrl)</div><div class="line">encoding = req.headers.get_content_charset()</div><div class="line">print(req.read().decode(encoding))</div></pre></td></tr></table></figure>
-<p>然後就出現類似這樣的錯誤</p>
-<blockquote>
-<p>UnicodeEncodeError: ‘cp950’ codec can’t encode character ‘\ufffd’ in position 5564: illegal multibyte sequence</p>
-</blockquote>
-<p>起初只是單純以為decode沒有處理error<br>不過即使改成req.read().decode(encoding, errors=’ignore’)也無法改善<br>後來才發現是python print會偵測終端機的編碼轉碼輸出<br>所以unicode轉window cmd預設編碼cp950如果遇到無法解析的字就會報這個錯誤<br>除了改cmd的編碼之外，另外一個解法就是先自己encode成cp950並忽略掉錯誤再轉回unicode…</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</div><div class="line"><span class="keyword">import</span> sys</div><div class="line"></div><div class="line">req = request.urlopen(jsonUrl)</div><div class="line">encoding = req.headers.get_content_charset()</div><div class="line">data = req.read().decode(encoding).encode(sys.stdin.encoding, <span class="string">'replace'</span>).decode(sys.stdin.encoding)</div><div class="line">print(data)</div></pre></td></tr></table></figure>
-<p>到這一步驟已經可以成功在終端機顯示中文了<br>但如果你像筆者一樣使用sublime text3，會發現預設的build system沒辦法正常print出中文<br>原因是sublime預設的編碼是utf-8要特別設定build system並將編碼指定為cp950才可以</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"cmd"</span>: [<span class="string">"python"</span>, <span class="string">"-u"</span>, <span class="string">"$file"</span>],</div><div class="line">    <span class="attr">"file_regex"</span>: <span class="string">"^[ ]*File \"(...*?)\", line ([0-9]*)"</span>,</div><div class="line">    <span class="attr">"selector"</span>: <span class="string">"source.python"</span>,</div><div class="line">    <span class="attr">"encoding"</span> : <span class="string">"cp950"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>用上面的設定就可以在sublime成功印出中文囉!!</p>
-
+                <div class="postShorten-excerpt" itemprop="articleBody">
+                    <p>MAC, Linux 系統預設編碼utf8，而Windows預設使用ANSI編碼，因此windows下執行的python script會遇上不少的編碼麻煩。</p>
                     
+                        <a href="/blog/2016/03/21/Window下中文處理的亂碼/" class="postShorten-excerpt_link link">
+                            Continue reading
+                        </a>
                         
-                    
-                    
-                        <p>
-                            <a href="/blog/2016/03/21/Window下中文處理的亂碼/#post-footer" class="postShorten-excerpt_link link">
-                                Comment and share
-                            </a>
-                        </p>
                     
                 </div>
             
@@ -332,7 +344,7 @@
                     
                     <div class="media-body">
                         <a class="link-unstyled" href="http://zhongting.github.io/blog/2016/03/21/Window下中文處理的亂碼/">
-                            <h3 class="media-heading">Window下中文處理的亂碼</h3>
+                            <h3 class="media-heading">Python3在Windows下的中文亂碼處理</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -341,7 +353,7 @@
                                 
                             </span>
                         </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
+                        <div class="media-content hide-xs font-merryweather"><p>MAC, Linux 系統預設編碼utf8，而Windows預設使用ANSI編碼，因此windows下執行的python script會遇上不少的編碼麻煩。</p></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -360,7 +372,7 @@
                                 
                             </span>
                         </span>
-                        <div class="media-content hide-xs font-merryweather"></div>
+                        <div class="media-content hide-xs font-merryweather"><p>API文件除了word, google doc之外，你可以有更多選擇<br></div>
                     </div>
                     <div style="clear:both;"></div>
                     <hr>
@@ -382,7 +394,7 @@
         
 <div id="cover" style="background-image:url('/blog/assets/images/cover.jpg');"></div>
         <!--SCRIPTS-->
-<script src="/blog/assets/js/script-kzfrontvj7r2fs3osjdhrebes7xnyvt1dubklff2aptdazuln482jmu3rb6k.min.js"></script>
+<script src="/blog/assets/js/script-8hl50edjrtyfqum0habqvb18o2ffm77tmz4cwc4y2pfp4owpp5lkygydclre.min.js"></script>
 <!--SCRIPTS END-->
 
 

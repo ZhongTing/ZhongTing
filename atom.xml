@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Felix&#39; space</title>
+  <subtitle>分享Coding筆記</subtitle>
+  <link href="/blog/atom.xml" rel="self"/>
+  
+  <link href="http://zhongting.github.io/blog/"/>
+  <updated>2017-04-26T17:12:33.000Z</updated>
+  <id>http://zhongting.github.io/blog/</id>
+  
+  <author>
+    <name>Felix</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>A Survey of Rest API document generator 自動化產生API文件之研究</title>
+    <link href="http://zhongting.github.io/blog/2016/08/16/%E8%87%AA%E5%8B%95%E5%8C%96%E7%94%A2%E7%94%9FAPI%E6%96%87%E4%BB%B6%E7%A0%94%E7%A9%B6/"/>
+    <id>http://zhongting.github.io/blog/2016/08/16/自動化產生API文件研究/</id>
+    <published>2016-08-16T09:20:00.000Z</published>
+    <updated>2017-04-26T17:12:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>API文件除了word, google doc之外，你可以有更多選擇<br><a id="more"></a><br>現在有許多開源社群<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>能夠自動產生API文件<br><a href="https://apiblueprint.org" target="_blank" rel="external">API Blueprint</a>是一種開源的API語言<br>主要使用markdown語法來描述你的API<br>目前有許多工具可以直接從source code parse出API描述檔案<br>或者你也可以使用editor直接撰寫API描述檔案<br>之後再把API描述檔案render成html靜態文件</p>
+<p>除了有美美的文件以及能夠解決文件與程式碼不同步的問題之外<br>還有許多人做出實用的小工具<br>例如可以將API描述檔案轉承對應的source code(這是一個遠大的理想，目前實用性也許還不高…）<br>或者將API描述檔案轉成Postman的script<br>也有套件可以直接根據API描述檔案一鍵建立mock server<br>API bluerprint自成一種開源社群<br>你可以貢獻自己寫的任何工具！</p>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;"><a href="http://swagger.io" target="_blank" rel="external">Swagger</a>與<a href="http://raml.org/index.html" target="_blank" rel="external">Raml</a>也是相似於API Blueprint的社群</span><a href="#fnref:1" rev="footnote"> ↩</a></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">2.</span><span style="display: inline-block; vertical-align: top;">有些付費的服務整合的還滿好的，如<a href="https://apiary.io" target="_blank" rel="external">Apiary</a>，目前支援APIBlueprint與Swagger</span><a href="#fnref:2" rev="footnote"> ↩</a></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">3.</span><span style="display: inline-block; vertical-align: top;">除了以上所提及的社群，也有一些專案可以產生API文件，如<a href="http://apidocjs.com" target="_blank" rel="external">APIDoc</a>, <a href="https://github.com/lord/slate" target="_blank" rel="external">Slate</a></span><a href="#fnref:3" rev="footnote"> ↩</a></li></ol></div></div>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;API文件除了word, google doc之外，你可以有更多選擇&lt;br&gt;
+    
+    </summary>
+    
+      <category term="survey" scheme="http://zhongting.github.io/blog/categories/survey/"/>
+    
+    
+      <category term="restful api" scheme="http://zhongting.github.io/blog/tags/restful-api/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python3在Windows下的中文亂碼處理</title>
+    <link href="http://zhongting.github.io/blog/2016/03/21/Window%E4%B8%8B%E4%B8%AD%E6%96%87%E8%99%95%E7%90%86%E7%9A%84%E4%BA%82%E7%A2%BC/"/>
+    <id>http://zhongting.github.io/blog/2016/03/21/Window下中文處理的亂碼/</id>
+    <published>2016-03-21T13:27:00.000Z</published>
+    <updated>2017-04-26T16:51:49.000Z</updated>
+    
+    <content type="html"><![CDATA[<!-- excerpt -->
+<p>筆者是個python新手，不過最近論文需要，所以用python寫了一支load json預處理的程式<br>因為json內容大部分是中文，耳聞Python3在中文處理這方面比Python2還要來的好<br>於是使用了Python3.5來撰寫程式<br>沒想到在window下，這是一個悲劇的開始XDD</p>
+<p>首先這是一個接json的程式<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</div><div class="line"></div><div class="line">req = request.urlopen(jsonUrl)</div><div class="line">print(req.read())</div></pre></td></tr></table></figure></p>
+<p>但馬上會發現中文的地方會變成\x8e\x6e之類的亂碼<br>接著直覺性的會想要轉碼<br>因為req.read()出來的型態是byte<br>所以下了decode轉成unicode</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</div><div class="line"></div><div class="line">req = request.urlopen(jsonUrl)</div><div class="line">encoding = req.headers.get_content_charset()</div><div class="line">print(req.read().decode(encoding))</div></pre></td></tr></table></figure>
+<p>然後就出現類似這樣的錯誤</p>
+<blockquote>
+<p>UnicodeEncodeError: ‘cp950’ codec can’t encode character ‘\ufffd’ in position 5564: illegal multibyte sequence</p>
+</blockquote>
+<p>起初只是單純以為decode沒有處理error<br>不過即使改成req.read().decode(encoding, errors=’ignore’)也無法改善<br>後來才發現是python print會偵測終端機的編碼轉碼輸出<br>所以unicode轉window cmd預設編碼cp950如果遇到無法解析的字就會報這個錯誤<br>除了改cmd的編碼之外，另外一個解法就是先自己encode成cp950並忽略掉錯誤再轉回unicode…</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</div><div class="line"><span class="keyword">import</span> sys</div><div class="line"></div><div class="line">req = request.urlopen(jsonUrl)</div><div class="line">encoding = req.headers.get_content_charset()</div><div class="line">data = req.read().decode(encoding).encode(sys.stdin.encoding, <span class="string">'replace'</span>).decode(sys.stdin.encoding)</div><div class="line">print(data)</div></pre></td></tr></table></figure>
+<p>到這一步驟已經可以成功在終端機顯示中文了<br>但如果你像筆者一樣使用sublime text3，會發現預設的build system沒辦法正常print出中文<br>原因是sublime預設的編碼是utf-8要特別設定build system並將編碼指定為cp950才可以</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"cmd"</span>: [<span class="string">"python"</span>, <span class="string">"-u"</span>, <span class="string">"$file"</span>],</div><div class="line">    <span class="attr">"file_regex"</span>: <span class="string">"^[ ]*File \"(...*?)\", line ([0-9]*)"</span>,</div><div class="line">    <span class="attr">"selector"</span>: <span class="string">"source.python"</span>,</div><div class="line">    <span class="attr">"encoding"</span> : <span class="string">"cp950"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>用上面的設定就可以在sublime成功印出中文囉!!</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;MAC, Linux 系統預設編碼utf8，而Windows預設使用ANSI編碼，因此windows下執行的python script會遇上不少的編碼麻煩。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="python" scheme="http://zhongting.github.io/blog/categories/python/"/>
+    
+    
+      <category term="encoding" scheme="http://zhongting.github.io/blog/tags/encoding/"/>
+    
+  </entry>
+  
+</feed>
