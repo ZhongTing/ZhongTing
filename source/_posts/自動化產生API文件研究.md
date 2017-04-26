@@ -6,6 +6,7 @@ tags: restful api
 ---
 
 API文件除了word, google doc之外，你可以有更多選擇
+<!-- more -->
 現在有許多開源社群能夠自動產生API文件
 [API Blueprint](https://apiblueprint.org)是一種開源的API語言
 主要使用markdown語法來描述你的API

@@ -1,9 +1,15 @@
 ---
-title: Window下中文處理的亂碼
+title: Python3在Windows下的中文亂碼處理
 date: 2016-03-21 21:27
 category: python
 tags: encoding
+keywords: 
 ---
+
+MAC, Linux 系統預設編碼utf8，而Windows預設使用ANSI編碼，因此windows下執行的python script會遇上不少的編碼麻煩。
+
+<!-- excerpt -->
+
 筆者是個python新手，不過最近論文需要，所以用python寫了一支load json預處理的程式
 因為json內容大部分是中文，耳聞Python3在中文處理這方面比Python2還要來的好
 於是使用了Python3.5來撰寫程式
