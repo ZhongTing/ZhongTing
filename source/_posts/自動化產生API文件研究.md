@@ -7,7 +7,7 @@ tags: restful api
 
 API文件除了word, google doc之外，你可以有更多選擇
 <!-- more -->
-現在有許多開源社群能夠自動產生API文件
+現在有許多開源社群[^1]能夠自動產生API文件
 [API Blueprint](https://apiblueprint.org)是一種開源的API語言
 主要使用markdown語法來描述你的API
 目前有許多工具可以直接從source code parse出API描述檔案
@@ -23,13 +23,8 @@ API bluerprint自成一種開源社群
 你可以貢獻自己寫的任何工具！
 
 
-註一
-[Swagger](http://swagger.io)與[Raml](http://raml.org/index.html)也是相似於API Blueprint的社群
+[^1]:[Swagger](http://swagger.io)與[Raml](http://raml.org/index.html)也是相似於API Blueprint的社群
 
-註二
-有些付費的服務整合的還滿好的
-[Apiary](https://apiary.io)，目前支援APIBlueprint與Swagger
+[^2]:有些付費的服務整合的還滿好的，如[Apiary](https://apiary.io)，目前支援APIBlueprint與Swagger
 
-註三
-除了以上所提及的社群，也有一些專案可以產生API文件
-[APIDoc](http://apidocjs.com), [Slate](https://github.com/lord/slate)
+[^3]:除了以上所提及的社群，也有一些專案可以產生API文件，如[APIDoc](http://apidocjs.com), [Slate](https://github.com/lord/slate)
