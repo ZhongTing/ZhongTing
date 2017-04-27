@@ -5,7 +5,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://zhongting.github.io/blog/"/>
-  <updated>2017-04-26T17:12:33.000Z</updated>
+  <updated>2017-04-27T11:45:40.000Z</updated>
   <id>http://zhongting.github.io/blog/</id>
   
   <author>
@@ -16,19 +16,19 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>A Survey of Rest API document generator 自動化產生API文件之研究</title>
+    <title>自動化產生API文件</title>
     <link href="http://zhongting.github.io/blog/2016/08/16/%E8%87%AA%E5%8B%95%E5%8C%96%E7%94%A2%E7%94%9FAPI%E6%96%87%E4%BB%B6%E7%A0%94%E7%A9%B6/"/>
     <id>http://zhongting.github.io/blog/2016/08/16/自動化產生API文件研究/</id>
     <published>2016-08-16T09:20:00.000Z</published>
-    <updated>2017-04-26T17:12:33.000Z</updated>
+    <updated>2017-04-27T11:45:40.000Z</updated>
     
-    <content type="html"><![CDATA[<p>API文件除了word, google doc之外，你可以有更多選擇<br><a id="more"></a><br>現在有許多開源社群<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>能夠自動產生API文件<br><a href="https://apiblueprint.org" target="_blank" rel="external">API Blueprint</a>是一種開源的API語言<br>主要使用markdown語法來描述你的API<br>目前有許多工具可以直接從source code parse出API描述檔案<br>或者你也可以使用editor直接撰寫API描述檔案<br>之後再把API描述檔案render成html靜態文件</p>
+    <content type="html"><![CDATA[<p>API文件除了使用word, google doc撰寫之外，其實可以有更多選擇。<br><a id="more"></a><br>現在有許多開源社群<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>能夠自動產生API文件<br><a href="https://apiblueprint.org" target="_blank" rel="external">API Blueprint</a>是一種開源的API語言<br>主要使用markdown語法來描述你的API<br>目前有許多工具可以直接從source code parse出API描述檔案<br>或者你也可以使用editor直接撰寫API描述檔案<br>之後再把API描述檔案render成html靜態文件</p>
 <p>除了有美美的文件以及能夠解決文件與程式碼不同步的問題之外<br>還有許多人做出實用的小工具<br>例如可以將API描述檔案轉承對應的source code(這是一個遠大的理想，目前實用性也許還不高…）<br>或者將API描述檔案轉成Postman的script<br>也有套件可以直接根據API描述檔案一鍵建立mock server<br>API bluerprint自成一種開源社群<br>你可以貢獻自己寫的任何工具！</p>
 <div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;"><a href="http://swagger.io" target="_blank" rel="external">Swagger</a>與<a href="http://raml.org/index.html" target="_blank" rel="external">Raml</a>也是相似於API Blueprint的社群</span><a href="#fnref:1" rev="footnote"> ↩</a></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">2.</span><span style="display: inline-block; vertical-align: top;">有些付費的服務整合的還滿好的，如<a href="https://apiary.io" target="_blank" rel="external">Apiary</a>，目前支援APIBlueprint與Swagger</span><a href="#fnref:2" rev="footnote"> ↩</a></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">3.</span><span style="display: inline-block; vertical-align: top;">除了以上所提及的社群，也有一些專案可以產生API文件，如<a href="http://apidocjs.com" target="_blank" rel="external">APIDoc</a>, <a href="https://github.com/lord/slate" target="_blank" rel="external">Slate</a></span><a href="#fnref:3" rev="footnote"> ↩</a></li></ol></div></div>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;API文件除了word, google doc之外，你可以有更多選擇&lt;br&gt;
+      &lt;p&gt;API文件除了使用word, google doc撰寫之外，其實可以有更多選擇。&lt;br&gt;
     
     </summary>
     
@@ -71,6 +71,69 @@
     
     
       <category term="encoding" scheme="http://zhongting.github.io/blog/tags/encoding/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android Thread - 執行緒筆記</title>
+    <link href="http://zhongting.github.io/blog/2013/08/29/Android%20Thread%20-%20%E5%9F%B7%E8%A1%8C%E7%B7%92%E7%AD%86%E8%A8%98/"/>
+    <id>http://zhongting.github.io/blog/2013/08/29/Android Thread - 執行緒筆記/</id>
+    <published>2013-08-29T13:43:00.000Z</published>
+    <updated>2017-04-27T12:56:28.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>這裡會介紹 Thread, Runnable, Handler, AsyncTask等相關的android thread class。<br><a id="more"></a><br>android 程式一開啟的時候，系統會創造並執行一個main thread。所有UI顯示或者widget的event都在這個thread完成，所以又名 UI thread。有時候我們需要進行一些比較花時間的運算，為了避免UI thread的阻塞，我們必須另外使用另外一個thread來處理(worker thread)。而使用thread的方法很簡單，只需要定義run()方法再叫用run()函式即可。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Thread()&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// do something</span></div><div class="line">    &#125;</div><div class="line">&#125;.run();</div></pre></td></tr></table></figure></p>
+<p>為了閱讀性及彈性，Android API有另外提供一個 <a href="https://developer.android.com/reference/java/lang/Runnable.html" target="_blank" rel="external">Runnable</a> 的介面。Runnable 裡面定義了 run() function，我們僅需要把Runnable 物件丟給thread執行就可以了。就像是把工作(Runnable)交給工人(worker thread)一樣。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Runnable task = <span class="keyword">new</span> Runnable() &#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// do some task here</span></div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">new</span> Thread(task).start();</div></pre></td></tr></table></figure>
+<p>如果task不需要重複利用，也可以不要存成變數而直接在new thread時再宣告(如下)。其實跟第一個方法很像，只是我們run定義在runable interface。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// do something</span></div><div class="line">    &#125;</div><div class="line">&#125;).start();</div></pre></td></tr></table></figure></p>
+<p>Thread使用上滿簡單的，不過還是有一些要注意的地方。<a href="https://developer.android.com/guide/components/processes-and-threads.html#Threads" target="_blank" rel="external">Android API Guide</a> 提到Thread有兩個原則要遵守：</p>
+<ol>
+<li>Do not block the UI thread </li>
+<li>Do not access the Android UI toolkit from outside the UI thread </li>
+</ol>
+<p>所以在worker thread 千萬不能直接使用UI的元件，否則會造成run-time exception error 或者其他未知的問題。雖然不能直接存取UI，但是可以使用間接的方式來存取。thread之間彼此溝通方式有很多，其中一種就是message。Android提供一個 <a href="https://developer.android.com/reference/android/os/Handler.html" target="_blank" rel="external">Handler</a>類別來充當thread間的溝通介面，在這裡舉的例子是 worker thread 與 UI thread(activity) 之間的溝通。</p>
+<p>Handler 的 功用主要有兩個：</p>
+<ol>
+<li>to enqueue an action to be performed on a different thread than your own.</li>
+<li>to schedule messages and runnables to be executed as some point in the future</li>
+</ol>
+<p>第一個功能是藉由 message queue 來處理其他 thread 的訊息<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> <span class="keyword">private</span> <span class="keyword">int</span> MESSAGE_SET_TITLE = <span class="number">1</span>;</div><div class="line"></div><div class="line"><span class="keyword">private</span> Handler handler = <span class="keyword">new</span> Handler() &#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(android.os.Message msg)</span> </span>&#123;</div><div class="line">        <span class="keyword">switch</span> (msg.what) &#123;</div><div class="line">            <span class="keyword">case</span> MESSAGE_SET_TITLE:</div><div class="line">                somebutton.setTitle(<span class="string">"sometitle"</span>);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">    <span class="keyword">new</span> Thread() &#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">            handler.sendEmptyMessage(MESSAGE_SET_TITLE);</div><div class="line">        &#125;</div><div class="line">    &#125;.start();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>另外一個功能則是排程工作或訊息<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> Handler handler = <span class="keyword">new</span> Handler();</div><div class="line">   <span class="comment">//or handler = new Handler(anotherThread.getLooper());</span></div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">       handler.post(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">               <span class="comment">//do some task here</span></div><div class="line">           &#125;</div><div class="line">       &#125;);</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>除了post以及sendEmptyMessage之外，Handler另外也提供了一些函式可以用在訊息排程：</p>
+<ul>
+<li><a href="https://developer.android.com/reference/android/os/Handler.html#postAtTime(java.lang.Runnable,%20long%29" target="_blank" rel="external">postAtTime(Runnable, long)</a></li>
+<li><a href="https://developer.android.com/reference/android/os/Handler.html#postDelayed(java.lang.Runnable,%20long%29" target="_blank" rel="external">postDelayed(Runnable, long)</a></li>
+<li><a href="https://developer.android.com/reference/android/os/Handler.html#sendMessage(android.os.Message%29" target="_blank" rel="external">sendMessage(Message)</a></li>
+<li><a href="https://developer.android.com/reference/android/os/Handler.html#sendMessageAtTime(android.os.Message,%20long%29" target="_blank" rel="external">sendMessageAtTime(Message, long)</a></li>
+<li><a href="https://developer.android.com/reference/android/os/Handler.html#sendMessageDelayed(android.os.Message,%20long%29" target="_blank" rel="external">sendMessageDelayed(Message, long)</a></li>
+</ul>
+<p>如果你是要直接使用UI Thread的元件，也可以直接透過下列的method操作：</p>
+<ul>
+<li><a href="https://developer.android.com/reference/android/app/Activity.html#runOnUiThread(java.lang.Runnable%29" target="_blank" rel="external">Activity.runOnUiThread(Runnable)</a></li>
+<li><a href="https://developer.android.com/reference/android/view/View.html#post(java.lang.Runnable%29" target="_blank" rel="external">View.post(Runnable)</a></li>
+<li><a href="https://developer.android.com/reference/android/view/View.html#postDelayed(java.lang.Runnable,%20long%29" target="_blank" rel="external">View.postDelayed(Runnable, long)</a></li>
+</ul>
+<p>臨時性的操作不同thread可以利用上面的作法，不過大量使用程式碼會變得不容易閱讀。Android 這裡有提供一個 <a href="https://developer.android.com/reference/android/os/AsyncTask.html" target="_blank" rel="external">AsyncTask Class</a> 來簡化thread與handler之間的操作。你可以在文件裡面可以找到更詳細介紹以及使用方法。使用AsyncTask可以讓程式碼變得很簡潔：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> DownloadFilesTask().execute(url1, url2, url3);</div></pre></td></tr></table></figure></p>
+<p>當然AsyncTask還是有一些限制的：</p>
+<ol>
+<li>The AsyncTask class must be loaded on the UI thread. This is done automatically as of JELLY_BEAN.</li>
+<li>The task instance must be created on the UI thread. </li>
+<li>execute(Params…) must be invoked on the UI thread.</li>
+<li>Do not call onPreExecute(), onPostExecute(Result), doInBackground(Params…), onProgressUpdate(Progress…) manually. </li>
+<li>The task can be executed only once (an exception will be thrown if a second execution is attempted.)</li>
+</ol>
+<p>AsyncTask的設計適合用來作短時間且一次性的工作。如果想處理長時間的工作，文件建議我們使用 java.util.concurrent pacakge的類別，如<a href="https://developer.android.com/reference/java/util/concurrent/Executor.html" target="_blank" rel="external">Executor</a>, <a href="https://developer.android.com/reference/java/util/concurrent/ThreadPoolExecutor.html" target="_blank" rel="external">ThreadPoolExecutor</a> 或是 <a href="https://developer.android.com/reference/java/util/concurrent/FutureTask.html" target="_blank" rel="external">FutureTask</a>。若想要處理重複有週期性的工作，則可以使用<a href="https://developer.android.com/reference/java/util/Timer.html" target="_blank" rel="external">Timer</a>與<a href="https://developer.android.com/reference/java/util/TimerTask.html" target="_blank" rel="external">TimerTask</a>。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;這裡會介紹 Thread, Runnable, Handler, AsyncTask等相關的android thread class。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="android" scheme="http://zhongting.github.io/blog/categories/android/"/>
+    
+    
+      <category term="thread" scheme="http://zhongting.github.io/blog/tags/thread/"/>
     
   </entry>
   

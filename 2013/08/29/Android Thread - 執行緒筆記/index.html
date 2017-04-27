@@ -6,24 +6,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Felix&#39; space">
-    <title>Python3在Windows下的中文亂碼處理 - Felix&#39; space</title>
+    <title>Android Thread - 執行緒筆記 - Felix&#39; space</title>
     <meta name="author" content="Felix">
     
     
     
         <link rel="alternate" type="application/atom+xml" title="RSS" href="/blog/atom.xml">
     
-    <meta name="description" content="MAC, Linux 系統預設編碼utf8，而Windows預設使用ANSI編碼，因此windows下執行的python script會遇上不少的編碼麻煩。">
-<meta name="keywords" content="encoding">
+    <meta name="description" content="這裡會介紹 Thread, Runnable, Handler, AsyncTask等相關的android thread class。">
+<meta name="keywords" content="thread">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Python3在Windows下的中文亂碼處理">
-<meta property="og:url" content="http://zhongting.github.io/blog/2016/03/21/Window下中文處理的亂碼/index.html">
+<meta property="og:title" content="Android Thread - 執行緒筆記">
+<meta property="og:url" content="http://zhongting.github.io/blog/2013/08/29/Android Thread - 執行緒筆記/index.html">
 <meta property="og:site_name" content="Felix' space">
-<meta property="og:description" content="MAC, Linux 系統預設編碼utf8，而Windows預設使用ANSI編碼，因此windows下執行的python script會遇上不少的編碼麻煩。">
-<meta property="og:updated_time" content="2017-04-26T16:51:49.000Z">
+<meta property="og:description" content="這裡會介紹 Thread, Runnable, Handler, AsyncTask等相關的android thread class。">
+<meta property="og:updated_time" content="2017-04-27T12:56:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python3在Windows下的中文亂碼處理">
-<meta name="twitter:description" content="MAC, Linux 系統預設編碼utf8，而Windows預設使用ANSI編碼，因此windows下執行的python script會遇上不少的編碼麻煩。">
+<meta name="twitter:title" content="Android Thread - 執行緒筆記">
+<meta name="twitter:description" content="這裡會介紹 Thread, Runnable, Handler, AsyncTask等相關的android thread class。">
     
     
         
@@ -236,20 +236,20 @@
         <div class="post-header main-content-wrap text-center">
     
         <h1 class="post-title" itemprop="headline">
-            Python3在Windows下的中文亂碼處理
+            Android Thread - 執行緒筆記
         </h1>
     
     
         <div class="post-meta">
-    <time itemprop="datePublished" datetime="2016-03-21T21:27:00+08:00">
+    <time itemprop="datePublished" datetime="2013-08-29T21:43:00+08:00">
 	
-		    Mar 21, 2016
+		    Aug 29, 2013
     	
     </time>
     
         <span>in </span>
         
-    <a class="category-link" href="/blog/categories/python/">python</a>
+    <a class="category-link" href="/blog/categories/android/">android</a>
 
 
     
@@ -260,20 +260,48 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <!-- excerpt -->
-<p>筆者是個python新手，不過最近論文需要，所以用python寫了一支load json預處理的程式<br>因為json內容大部分是中文，耳聞Python3在中文處理這方面比Python2還要來的好<br>於是使用了Python3.5來撰寫程式<br>沒想到在window下，這是一個悲劇的開始XDD</p>
-<p>首先這是一個接json的程式<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</div><div class="line"></div><div class="line">req = request.urlopen(jsonUrl)</div><div class="line">print(req.read())</div></pre></td></tr></table></figure></p>
-<p>但馬上會發現中文的地方會變成\x8e\x6e之類的亂碼<br>接著直覺性的會想要轉碼<br>因為req.read()出來的型態是byte<br>所以下了decode轉成unicode</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</div><div class="line"></div><div class="line">req = request.urlopen(jsonUrl)</div><div class="line">encoding = req.headers.get_content_charset()</div><div class="line">print(req.read().decode(encoding))</div></pre></td></tr></table></figure>
-<p>然後就出現類似這樣的錯誤</p>
-<blockquote>
-<p>UnicodeEncodeError: ‘cp950’ codec can’t encode character ‘\ufffd’ in position 5564: illegal multibyte sequence</p>
-</blockquote>
-<p>起初只是單純以為decode沒有處理error<br>不過即使改成req.read().decode(encoding, errors=’ignore’)也無法改善<br>後來才發現是python print會偵測終端機的編碼轉碼輸出<br>所以unicode轉window cmd預設編碼cp950如果遇到無法解析的字就會報這個錯誤<br>除了改cmd的編碼之外，另外一個解法就是先自己encode成cp950並忽略掉錯誤再轉回unicode…</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</div><div class="line"><span class="keyword">import</span> sys</div><div class="line"></div><div class="line">req = request.urlopen(jsonUrl)</div><div class="line">encoding = req.headers.get_content_charset()</div><div class="line">data = req.read().decode(encoding).encode(sys.stdin.encoding, <span class="string">'replace'</span>).decode(sys.stdin.encoding)</div><div class="line">print(data)</div></pre></td></tr></table></figure>
-<p>到這一步驟已經可以成功在終端機顯示中文了<br>但如果你像筆者一樣使用sublime text3，會發現預設的build system沒辦法正常print出中文<br>原因是sublime預設的編碼是utf-8要特別設定build system並將編碼指定為cp950才可以</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"cmd"</span>: [<span class="string">"python"</span>, <span class="string">"-u"</span>, <span class="string">"$file"</span>],</div><div class="line">    <span class="attr">"file_regex"</span>: <span class="string">"^[ ]*File \"(...*?)\", line ([0-9]*)"</span>,</div><div class="line">    <span class="attr">"selector"</span>: <span class="string">"source.python"</span>,</div><div class="line">    <span class="attr">"encoding"</span> : <span class="string">"cp950"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>用上面的設定就可以在sublime成功印出中文囉!!</p>
+            <p>這裡會介紹 Thread, Runnable, Handler, AsyncTask等相關的android thread class。<br><a id="more"></a><br>android 程式一開啟的時候，系統會創造並執行一個main thread。所有UI顯示或者widget的event都在這個thread完成，所以又名 UI thread。有時候我們需要進行一些比較花時間的運算，為了避免UI thread的阻塞，我們必須另外使用另外一個thread來處理(worker thread)。而使用thread的方法很簡單，只需要定義run()方法再叫用run()函式即可。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Thread()&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// do something</span></div><div class="line">    &#125;</div><div class="line">&#125;.run();</div></pre></td></tr></table></figure></p>
+<p>為了閱讀性及彈性，Android API有另外提供一個 <a href="https://developer.android.com/reference/java/lang/Runnable.html" target="_blank" rel="external">Runnable</a> 的介面。Runnable 裡面定義了 run() function，我們僅需要把Runnable 物件丟給thread執行就可以了。就像是把工作(Runnable)交給工人(worker thread)一樣。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Runnable task = <span class="keyword">new</span> Runnable() &#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// do some task here</span></div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">new</span> Thread(task).start();</div></pre></td></tr></table></figure>
+<p>如果task不需要重複利用，也可以不要存成變數而直接在new thread時再宣告(如下)。其實跟第一個方法很像，只是我們run定義在runable interface。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// do something</span></div><div class="line">    &#125;</div><div class="line">&#125;).start();</div></pre></td></tr></table></figure></p>
+<p>Thread使用上滿簡單的，不過還是有一些要注意的地方。<a href="https://developer.android.com/guide/components/processes-and-threads.html#Threads" target="_blank" rel="external">Android API Guide</a> 提到Thread有兩個原則要遵守：</p>
+<ol>
+<li>Do not block the UI thread </li>
+<li>Do not access the Android UI toolkit from outside the UI thread </li>
+</ol>
+<p>所以在worker thread 千萬不能直接使用UI的元件，否則會造成run-time exception error 或者其他未知的問題。雖然不能直接存取UI，但是可以使用間接的方式來存取。thread之間彼此溝通方式有很多，其中一種就是message。Android提供一個 <a href="https://developer.android.com/reference/android/os/Handler.html" target="_blank" rel="external">Handler</a>類別來充當thread間的溝通介面，在這裡舉的例子是 worker thread 與 UI thread(activity) 之間的溝通。</p>
+<p>Handler 的 功用主要有兩個：</p>
+<ol>
+<li>to enqueue an action to be performed on a different thread than your own.</li>
+<li>to schedule messages and runnables to be executed as some point in the future</li>
+</ol>
+<p>第一個功能是藉由 message queue 來處理其他 thread 的訊息<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> <span class="keyword">private</span> <span class="keyword">int</span> MESSAGE_SET_TITLE = <span class="number">1</span>;</div><div class="line"></div><div class="line"><span class="keyword">private</span> Handler handler = <span class="keyword">new</span> Handler() &#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(android.os.Message msg)</span> </span>&#123;</div><div class="line">        <span class="keyword">switch</span> (msg.what) &#123;</div><div class="line">            <span class="keyword">case</span> MESSAGE_SET_TITLE:</div><div class="line">                somebutton.setTitle(<span class="string">"sometitle"</span>);</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">    <span class="keyword">new</span> Thread() &#123;</div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">            handler.sendEmptyMessage(MESSAGE_SET_TITLE);</div><div class="line">        &#125;</div><div class="line">    &#125;.start();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>另外一個功能則是排程工作或訊息<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> Handler handler = <span class="keyword">new</span> Handler();</div><div class="line">   <span class="comment">//or handler = new Handler(anotherThread.getLooper());</span></div><div class="line"></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</div><div class="line">       handler.post(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">               <span class="comment">//do some task here</span></div><div class="line">           &#125;</div><div class="line">       &#125;);</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>除了post以及sendEmptyMessage之外，Handler另外也提供了一些函式可以用在訊息排程：</p>
+<ul>
+<li><a href="https://developer.android.com/reference/android/os/Handler.html#postAtTime(java.lang.Runnable,%20long%29" target="_blank" rel="external">postAtTime(Runnable, long)</a></li>
+<li><a href="https://developer.android.com/reference/android/os/Handler.html#postDelayed(java.lang.Runnable,%20long%29" target="_blank" rel="external">postDelayed(Runnable, long)</a></li>
+<li><a href="https://developer.android.com/reference/android/os/Handler.html#sendMessage(android.os.Message%29" target="_blank" rel="external">sendMessage(Message)</a></li>
+<li><a href="https://developer.android.com/reference/android/os/Handler.html#sendMessageAtTime(android.os.Message,%20long%29" target="_blank" rel="external">sendMessageAtTime(Message, long)</a></li>
+<li><a href="https://developer.android.com/reference/android/os/Handler.html#sendMessageDelayed(android.os.Message,%20long%29" target="_blank" rel="external">sendMessageDelayed(Message, long)</a></li>
+</ul>
+<p>如果你是要直接使用UI Thread的元件，也可以直接透過下列的method操作：</p>
+<ul>
+<li><a href="https://developer.android.com/reference/android/app/Activity.html#runOnUiThread(java.lang.Runnable%29" target="_blank" rel="external">Activity.runOnUiThread(Runnable)</a></li>
+<li><a href="https://developer.android.com/reference/android/view/View.html#post(java.lang.Runnable%29" target="_blank" rel="external">View.post(Runnable)</a></li>
+<li><a href="https://developer.android.com/reference/android/view/View.html#postDelayed(java.lang.Runnable,%20long%29" target="_blank" rel="external">View.postDelayed(Runnable, long)</a></li>
+</ul>
+<p>臨時性的操作不同thread可以利用上面的作法，不過大量使用程式碼會變得不容易閱讀。Android 這裡有提供一個 <a href="https://developer.android.com/reference/android/os/AsyncTask.html" target="_blank" rel="external">AsyncTask Class</a> 來簡化thread與handler之間的操作。你可以在文件裡面可以找到更詳細介紹以及使用方法。使用AsyncTask可以讓程式碼變得很簡潔：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> DownloadFilesTask().execute(url1, url2, url3);</div></pre></td></tr></table></figure></p>
+<p>當然AsyncTask還是有一些限制的：</p>
+<ol>
+<li>The AsyncTask class must be loaded on the UI thread. This is done automatically as of JELLY_BEAN.</li>
+<li>The task instance must be created on the UI thread. </li>
+<li>execute(Params…) must be invoked on the UI thread.</li>
+<li>Do not call onPreExecute(), onPostExecute(Result), doInBackground(Params…), onProgressUpdate(Progress…) manually. </li>
+<li>The task can be executed only once (an exception will be thrown if a second execution is attempted.)</li>
+</ol>
+<p>AsyncTask的設計適合用來作短時間且一次性的工作。如果想處理長時間的工作，文件建議我們使用 java.util.concurrent pacakge的類別，如<a href="https://developer.android.com/reference/java/util/concurrent/Executor.html" target="_blank" rel="external">Executor</a>, <a href="https://developer.android.com/reference/java/util/concurrent/ThreadPoolExecutor.html" target="_blank" rel="external">ThreadPoolExecutor</a> 或是 <a href="https://developer.android.com/reference/java/util/concurrent/FutureTask.html" target="_blank" rel="external">FutureTask</a>。若想要處理重複有週期性的工作，則可以使用<a href="https://developer.android.com/reference/java/util/Timer.html" target="_blank" rel="external">Timer</a>與<a href="https://developer.android.com/reference/java/util/TimerTask.html" target="_blank" rel="external">TimerTask</a>。</p>
+
             
         </div>
     </div>
@@ -282,7 +310,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">TAGGED IN</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/blog/tags/encoding/">encoding</a>
+    <a class="tag tag--primary tag--small t-link" href="/blog/tags/thread/">thread</a>
 
             </div>
         
@@ -292,7 +320,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/blog/2013/08/29/Android Thread - 執行緒筆記/"  data-tooltip="Android Thread - 執行緒筆記">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -300,7 +328,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/blog/2016/08/16/自動化產生API文件研究/" data-tooltip="自動化產生API文件">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/blog/2016/03/21/Window下中文處理的亂碼/" data-tooltip="Python3在Windows下的中文亂碼處理">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -318,7 +346,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://zhongting.github.io/blog/2016/03/21/Window下中文處理的亂碼/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://zhongting.github.io/blog/2013/08/29/Android Thread - 執行緒筆記/">
                     <i class="fa fa-facebook-official"></i>
                 </a>
             </li>
@@ -326,7 +354,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://zhongting.github.io/blog/2016/03/21/Window下中文處理的亂碼/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://zhongting.github.io/blog/2013/08/29/Android Thread - 執行緒筆記/">
                     <i class="fa fa-twitter"></i>
                 </a>
             </li>
@@ -334,7 +362,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://zhongting.github.io/blog/2016/03/21/Window下中文處理的亂碼/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://zhongting.github.io/blog/2013/08/29/Android Thread - 執行緒筆記/">
                     <i class="fa fa-google-plus"></i>
                 </a>
             </li>
@@ -384,7 +412,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/blog/2013/08/29/Android Thread - 執行緒筆記/"  data-tooltip="Android Thread - 執行緒筆記">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
@@ -392,7 +420,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/blog/2016/08/16/自動化產生API文件研究/" data-tooltip="自動化產生API文件">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/blog/2016/03/21/Window下中文處理的亂碼/" data-tooltip="Python3在Windows下的中文亂碼處理">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
                     <i class="fa fa-angle-right"></i>
@@ -410,7 +438,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://zhongting.github.io/blog/2016/03/21/Window下中文處理的亂碼/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://zhongting.github.io/blog/2013/08/29/Android Thread - 執行緒筆記/">
                     <i class="fa fa-facebook-official"></i>
                 </a>
             </li>
@@ -418,7 +446,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://zhongting.github.io/blog/2016/03/21/Window下中文處理的亂碼/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://zhongting.github.io/blog/2013/08/29/Android Thread - 執行緒筆記/">
                     <i class="fa fa-twitter"></i>
                 </a>
             </li>
@@ -426,7 +454,7 @@
             
             
             <li class="post-action hide-xs">
-                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://zhongting.github.io/blog/2016/03/21/Window下中文處理的亂碼/">
+                <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://zhongting.github.io/blog/2013/08/29/Android Thread - 執行緒筆記/">
                     <i class="fa fa-google-plus"></i>
                 </a>
             </li>
@@ -457,7 +485,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://zhongting.github.io/blog/2016/03/21/Window下中文處理的亂碼/">
+                <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://zhongting.github.io/blog/2013/08/29/Android Thread - 執行緒筆記/">
                     <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
                 </a>
             </li>
@@ -465,7 +493,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://zhongting.github.io/blog/2016/03/21/Window下中文處理的亂碼/">
+                <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://zhongting.github.io/blog/2013/08/29/Android Thread - 執行緒筆記/">
                     <i class="fa fa-twitter"></i><span>Share on Twitter</span>
                 </a>
             </li>
@@ -473,7 +501,7 @@
             
             
             <li class="share-option">
-                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://zhongting.github.io/blog/2016/03/21/Window下中文處理的亂碼/">
+                <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://zhongting.github.io/blog/2013/08/29/Android Thread - 執行緒筆記/">
                     <i class="fa fa-google-plus"></i><span>Share on Google+</span>
                 </a>
             </li>
@@ -611,9 +639,9 @@
     
         <script>
              var disqus_config = function () {
-                 this.page.url = 'http://zhongting.github.io/blog/2016/03/21/Window下中文處理的亂碼/';
+                 this.page.url = 'http://zhongting.github.io/blog/2013/08/29/Android Thread - 執行緒筆記/';
                  
-                    this.page.identifier = '2016/03/21/Window下中文處理的亂碼/';
+                    this.page.identifier = '2013/08/29/Android Thread - 執行緒筆記/';
                  
              };
             (function() {
