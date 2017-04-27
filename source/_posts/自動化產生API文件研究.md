@@ -1,11 +1,11 @@
 ---
-title: A Survey of Rest API document generator 自動化產生API文件之研究
+title: 自動化產生API文件
 date: 2016-08-16 17:20
 category: survey
 tags: restful api
 ---
 
-API文件除了word, google doc之外，你可以有更多選擇
+API文件除了使用word, google doc撰寫之外，其實可以有更多選擇。
 <!-- more -->
 現在有許多開源社群[^1]能夠自動產生API文件
 [API Blueprint](https://apiblueprint.org)是一種開源的API語言
