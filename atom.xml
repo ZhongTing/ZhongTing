@@ -5,7 +5,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://zhongting.github.io/blog/"/>
-  <updated>2017-04-27T11:45:40.000Z</updated>
+  <updated>2017-05-01T17:49:00.000Z</updated>
   <id>http://zhongting.github.io/blog/</id>
   
   <author>
@@ -14,6 +14,20 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Welcome to Felix&#39; space</title>
+    <link href="http://zhongting.github.io/blog/2017/05/02/welcome/"/>
+    <id>http://zhongting.github.io/blog/2017/05/02/welcome/</id>
+    <published>2017-05-01T17:16:27.000Z</published>
+    <updated>2017-05-01T17:49:00.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>自動化產生API文件</title>
