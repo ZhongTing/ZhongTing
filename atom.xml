@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Felix&#39; space</title>
+  <title>估不準細節</title>
   <subtitle>分享Coding筆記</subtitle>
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://zhongting.github.io/blog/"/>
-  <updated>2017-05-01T17:49:00.000Z</updated>
+  <updated>2017-04-27T11:45:40.000Z</updated>
   <id>http://zhongting.github.io/blog/</id>
   
   <author>
@@ -14,20 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Welcome to Felix&#39; space</title>
-    <link href="http://zhongting.github.io/blog/2017/05/02/welcome/"/>
-    <id>http://zhongting.github.io/blog/2017/05/02/welcome/</id>
-    <published>2017-05-01T17:16:27.000Z</published>
-    <updated>2017-05-01T17:49:00.000Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
   
   <entry>
     <title>自動化產生API文件</title>
@@ -58,7 +44,7 @@
     <link href="http://zhongting.github.io/blog/2016/03/21/Window%E4%B8%8B%E4%B8%AD%E6%96%87%E8%99%95%E7%90%86%E7%9A%84%E4%BA%82%E7%A2%BC/"/>
     <id>http://zhongting.github.io/blog/2016/03/21/Window下中文處理的亂碼/</id>
     <published>2016-03-21T13:27:00.000Z</published>
-    <updated>2017-04-26T16:51:49.000Z</updated>
+    <updated>2017-05-22T17:25:05.000Z</updated>
     
     <content type="html"><![CDATA[<!-- excerpt -->
 <p>筆者是個python新手，不過最近論文需要，所以用python寫了一支load json預處理的程式<br>因為json內容大部分是中文，耳聞Python3在中文處理這方面比Python2還要來的好<br>於是使用了Python3.5來撰寫程式<br>沒想到在window下，這是一個悲劇的開始XDD</p>
@@ -73,11 +59,12 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</div><div class="line"><span class="keyword">import</span> sys</div><div class="line"></div><div class="line">req = request.urlopen(jsonUrl)</div><div class="line">encoding = req.headers.get_content_charset()</div><div class="line">data = req.read().decode(encoding).encode(sys.stdin.encoding, <span class="string">'replace'</span>).decode(sys.stdin.encoding)</div><div class="line">print(data)</div></pre></td></tr></table></figure>
 <p>到這一步驟已經可以成功在終端機顯示中文了<br>但如果你像筆者一樣使用sublime text3，會發現預設的build system沒辦法正常print出中文<br>原因是sublime預設的編碼是utf-8要特別設定build system並將編碼指定為cp950才可以</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"cmd"</span>: [<span class="string">"python"</span>, <span class="string">"-u"</span>, <span class="string">"$file"</span>],</div><div class="line">    <span class="attr">"file_regex"</span>: <span class="string">"^[ ]*File \"(...*?)\", line ([0-9]*)"</span>,</div><div class="line">    <span class="attr">"selector"</span>: <span class="string">"source.python"</span>,</div><div class="line">    <span class="attr">"encoding"</span> : <span class="string">"cp950"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>用上面的設定就可以在sublime成功印出中文囉!!</p>]]></content>
+<p>用上面的設定就可以在sublime成功印出中文囉!!</p>
+]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;MAC, Linux 系統預設編碼utf8，而Windows預設使用ANSI編碼，因此windows下執行的python script會遇上不少的編碼麻煩。&lt;/p&gt;
+      MAC, Linux 系統預設編碼utf8，而Windows預設使用ANSI編碼，因此windows下執行的python script會遇上不少的編碼麻煩。
     
     </summary>
     
@@ -93,7 +80,7 @@
     <link href="http://zhongting.github.io/blog/2013/08/29/Android%20Thread%20-%20%E5%9F%B7%E8%A1%8C%E7%B7%92%E7%AD%86%E8%A8%98/"/>
     <id>http://zhongting.github.io/blog/2013/08/29/Android Thread - 執行緒筆記/</id>
     <published>2013-08-29T13:43:00.000Z</published>
-    <updated>2017-04-27T12:56:28.000Z</updated>
+    <updated>2017-05-17T14:06:56.000Z</updated>
     
     <content type="html"><![CDATA[<p>這裡會介紹 Thread, Runnable, Handler, AsyncTask等相關的android thread class。<br><a id="more"></a><br>android 程式一開啟的時候，系統會創造並執行一個main thread。所有UI顯示或者widget的event都在這個thread完成，所以又名 UI thread。有時候我們需要進行一些比較花時間的運算，為了避免UI thread的阻塞，我們必須另外使用另外一個thread來處理(worker thread)。而使用thread的方法很簡單，只需要定義run()方法再叫用run()函式即可。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Thread()&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// do something</span></div><div class="line">    &#125;</div><div class="line">&#125;.run();</div></pre></td></tr></table></figure></p>
 <p>為了閱讀性及彈性，Android API有另外提供一個 <a href="https://developer.android.com/reference/java/lang/Runnable.html" target="_blank" rel="external">Runnable</a> 的介面。Runnable 裡面定義了 run() function，我們僅需要把Runnable 物件丟給thread執行就可以了。就像是把工作(Runnable)交給工人(worker thread)一樣。</p>
