@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Felix' space
+title: 估不準細節
 subtitle: 分享Coding筆記
 description: 
 author: Felix
@@ -40,7 +40,7 @@ future: true
 highlight:
   enable: true
   line_number: true
-  auto_detect: false
+  auto_detect: true
   tab_replace:
 
 # Category & Tag
@@ -62,9 +62,9 @@ pagination_dir: page
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
-plugins: hexo-algoliasearch
+plugins: hexo-front-matter-excerpt
 ## Themes: https://hexo.io/themes/
-theme: tranquilpeak
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -74,7 +74,7 @@ deploy:
   branch: gh-pages
 
 algolia:
-  appId: "QHSGUTOR8Y"
+  applicationID: "QHSGUTOR8Y"
   apiKey: "5920827ed929cb06516afb8686079f7d"
   adminApiKey: "3e469e16e17838de809f9b4b120eba94"
   chunkSize: 5000
@@ -93,3 +93,4 @@ feed:
     limit: 20
 sitemap:
     path: sitemap.xml
+keywords: 程式筆記

@@ -4,9 +4,10 @@ date: 2016-03-21 21:27
 category: python
 tags: encoding
 keywords: 
+excerpt: MAC, Linux 系統預設編碼utf8，而Windows預設使用ANSI編碼，因此windows下執行的python script會遇上不少的編碼麻煩。
 ---
 
-MAC, Linux 系統預設編碼utf8，而Windows預設使用ANSI編碼，因此windows下執行的python script會遇上不少的編碼麻煩。
+
 
 <!-- excerpt -->
 
